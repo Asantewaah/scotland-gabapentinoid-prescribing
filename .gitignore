@@ -1,0 +1,23 @@
+# Data downloads (large; re-create with analysis/01_download.R)
+data/raw/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Editors and OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Node (only if Observable Framework is added later)
+node_modules/

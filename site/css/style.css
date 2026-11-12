@@ -1,0 +1,156 @@
+/* ---------- Theme tokens: light is the default, dark via data-theme="dark" ---------- */
+:root,
+[data-theme="light"] {
+  --bg: #FAF7F0;
+  --ink: #1D1B4C;          /* indigo */
+  --muted: #6B6888;
+  --faint: rgba(29, 27, 76, .09);
+  --accent: #F2A900;       /* marigold */
+  --hl: rgba(242, 169, 0, .4);
+  --obs: #1D1B4C;          /* observed line */
+  --cf: #8E8BA8;           /* counterfactual line and band */
+  --band-op: .18;
+  --gap-op: .45;
+  --card-bg: rgba(250, 247, 240, .96);
+  --shadow: 0 2px 14px rgba(29, 27, 76, .08);
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --bg: #12112B;
+  --ink: #EDEBF7;
+  --muted: #A9A6C6;
+  --faint: rgba(237, 235, 247, .12);
+  --accent: #F2A900;
+  --hl: rgba(242, 169, 0, .35);
+  --obs: #EDEBF7;
+  --cf: #A9A6D8;
+  --band-op: .16;
+  --gap-op: .38;
+  --card-bg: rgba(22, 21, 52, .95);
+  --shadow: 0 2px 14px rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  line-height: 1.6;
+  transition: background-color .3s, color .3s;
+}
+h1, h2, h3, .title { font-family: "Fraunces", Georgia, serif; }
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 10;
+  font: 600 .8rem "Source Sans 3", sans-serif; letter-spacing: .04em;
+  color: var(--ink); background: var(--bg);
+  border: 1px solid var(--faint); border-radius: 999px;
+  padding: .45rem .9rem; cursor: pointer; box-shadow: var(--shadow);
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 88vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 10vh 8vw; max-width: 1100px; margin: 0 auto; border-bottom: 1px solid var(--faint);
+}
+.tag {
+  font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 2rem; display: flex; align-items: center; gap: .8rem;
+}
+.tag::before { content: ""; width: 36px; height: 3px; background: var(--accent); }
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: 1; margin: 0 0 1.6rem;
+  max-width: 13ch; font-weight: 600; letter-spacing: -.02em;
+}
+.hero h1 em { font-style: italic; font-weight: 400; background: linear-gradient(transparent 62%, var(--hl) 62%); }
+.hero p {
+  color: var(--muted); font-size: clamp(1.05rem, 1.7vw, 1.3rem); max-width: 44ch; margin: 0;
+  font-family: "Fraunces", Georgia, serif; font-weight: 300;
+}
+.cue { margin-top: 3.5rem; font-size: .75rem; color: var(--muted); letter-spacing: .16em; text-transform: uppercase; }
+.cue span { display: inline-block; margin-left: .6rem; animation: nudge 2s infinite; }
+.cue span::after { content: "↓"; }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+/* ---------- Scrollytelling layout ---------- */
+.scrolly {
+  display: grid; grid-template-columns: minmax(300px, 34%) 1fr; gap: 4vw;
+  padding: 0 5vw; position: relative; max-width: 1400px; margin: 0 auto;
+}
+.steps { padding: 30vh 0 40vh; }
+.step { min-height: 80vh; display: flex; align-items: center; }
+.card {
+  border-left: 3px solid var(--faint); padding: .4rem 0 .4rem 1.4rem;
+  opacity: .35; transition: opacity .5s, border-color .5s; max-width: 420px;
+}
+.step.active .card { opacity: 1; border-color: var(--accent); }
+.card h3 { margin: 0 0 .5rem; font-size: 1.4rem; font-weight: 600; }
+.card p { margin: .5rem 0; font-size: 1.05rem; }
+.card ul { margin: .5rem 0 0; padding-left: 1.1rem; }
+.card li { margin: .35rem 0; }
+.hl { font-weight: 700; background: linear-gradient(transparent 60%, var(--hl) 60%); }
+
+.sticky {
+  position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 4vh 0;
+}
+.chart-head .title { font-size: clamp(1.3rem, 2.3vw, 1.85rem); font-weight: 600; margin: 0; line-height: 1.2; }
+.chart-head .sub { color: var(--muted); font-size: .95rem; margin: .4rem 0 1rem; }
+#chart { flex: 1; min-height: 300px; width: 100%; }
+.source { color: var(--muted); font-size: .78rem; margin-top: .4rem; border-top: 1px solid var(--faint); padding-top: .5rem; }
+
+/* ---------- Chart marks (colours come from the theme tokens) ---------- */
+svg text { font-family: "Source Sans 3", sans-serif; font-size: 12px; }
+.axis text { fill: var(--muted); }
+.axis path { display: none; }
+.axis line { stroke: var(--faint); }
+
+.obs { fill: none; stroke: var(--obs); stroke-width: 2.4; }
+.cf { fill: none; stroke: var(--cf); stroke-width: 2; stroke-dasharray: 6 5; }
+.band { fill: var(--cf); fill-opacity: var(--band-op); }
+.gap { fill: var(--accent); fill-opacity: var(--gap-op); }
+.policy-line { stroke: var(--ink); stroke-opacity: .5; stroke-dasharray: 2 4; }
+.ann-line { stroke: var(--ink); stroke-width: 1.5; }
+
+.lbl-obs { fill: var(--obs); font-weight: 600; }
+.lbl-cf { fill: var(--cf); font-weight: 600; }
+.lbl-strong { fill: var(--ink); font-weight: 600; }
+.lbl-muted { fill: var(--muted); }
+.lbl-big { fill: var(--ink); font-family: "Fraunces", Georgia, serif !important; font-weight: 600; }
+
+.bar { fill: var(--cf); fill-opacity: .35; }
+.bar.focus { fill: var(--accent); fill-opacity: 1; }
+.ci { stroke: var(--ink); stroke-width: 1.5; }
+.zero { stroke: var(--ink); stroke-opacity: .6; }
+.bar-label { fill: var(--muted); }
+.bar-label.focus { fill: var(--ink); font-weight: 600; }
+.bar-value { fill: var(--ink); font-weight: 600; }
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 10vh 6vw 12vh; max-width: 720px; margin: 0 auto; color: var(--muted);
+  font-size: 1rem; border-top: 1px solid var(--faint);
+}
+footer h2 { color: var(--ink); font-size: 1.5rem; font-weight: 600; }
+footer strong { color: var(--ink); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 820px) {
+  .scrolly { display: block; padding: 0 5vw; }
+  .sticky { height: 62vh; z-index: 0; padding: 2vh 0; background: var(--bg); }
+  .steps { position: relative; z-index: 2; padding: 10vh 0 30vh; }
+  .step { min-height: 70vh; }
+  .card { background: var(--card-bg); padding: 1rem 1rem 1rem 1.2rem; opacity: .7; box-shadow: var(--shadow); }
+  .theme-toggle { top: 10px; right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cue span { animation: none; }
+  html, body, .card { transition: none; }
+}

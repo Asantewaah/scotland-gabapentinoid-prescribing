@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What changed when the rules changed?</title>
+<meta name="description" content="A causal look at gabapentinoid prescribing in Scotland after the April 2019 reclassification.">
+<script>
+  // Apply the saved theme before the page paints (light is the default).
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle" type="button">Dark</button>
+
+<header class="hero">
+  <div class="tag">Prototype · simulated data</div>
+  <h1>What changed when <em>the rules</em> changed?</h1>
+  <p>A causal look at prescribing in Scotland: not just what happened, but what would have happened otherwise.</p>
+  <div class="cue">Scroll<span aria-hidden="true"></span></div>
+</header>
+
+<section class="scrolly">
+  <div class="steps">
+    <div class="step" data-step="0"><div class="card">
+      <h3>A steady climb</h3>
+      <p>For four years, the number of items dispensed each month rose steadily, with a familiar winter bump every year.</p>
+    </div></div>
+    <div class="step" data-step="1"><div class="card">
+      <h3>Then the rules changed</h3>
+      <p>In April 2019 pregabalin and gabapentin were reclassified as controlled drugs, with stricter prescribing and dispensing rules.</p>
+    </div></div>
+    <div class="step" data-step="2"><div class="card">
+      <h3>The road not taken</h3>
+      <p>To judge the change, we need a comparison: what prescribing would have looked like <span class="hl">if nothing had happened</span>.</p>
+      <p>We fit the trend and seasonality from the years before, then project it forward. The shaded band is the range we would expect from chance alone.</p>
+    </div></div>
+    <div class="step" data-step="3"><div class="card">
+      <h3>What actually happened</h3>
+      <p>Prescribing dropped below that expected path almost immediately, and the gap kept widening.</p>
+    </div></div>
+    <div class="step" data-step="4"><div class="card">
+      <h3>Measuring the gap</h3>
+      <p>The shaded area is the estimated effect of the change: the distance between what happened and what we expected.</p>
+      <p id="effect-text"></p>
+    </div></div>
+    <div class="step" data-step="5"><div class="card">
+      <h3>Not the same everywhere</h3>
+      <p>Repeating the analysis for each deprivation quintile shows whether the change reached every community equally.</p>
+    </div></div>
+    <div class="step" data-step="6"><div class="card">
+      <h3>When is this causal?</h3>
+      <p>The estimate only holds if:</p>
+      <ul>
+        <li>nothing else changed at the same moment;</li>
+        <li>the old trend would have continued;</li>
+        <li>recording stayed consistent.</li>
+      </ul>
+      <p>A <span class="hl">control series</span>, such as a similar medicine that was not reclassified, tests the first assumption. If it shows no break, the case gets stronger.</p>
+    </div></div>
+  </div>
+
+  <div class="sticky">
+    <div class="chart-head">
+      <p class="title" id="chart-title"></p>
+      <p class="sub" id="chart-sub"></p>
+    </div>
+    <svg id="chart" role="img" aria-label="Interrupted time series chart of monthly prescribing"></svg>
+    <div class="source">Source: simulated data for layout testing. Final version: Public Health Scotland, Scottish Health and Social Care Open Data.</div>
+  </div>
+</section>
+
+<footer>
+  <h2>About this piece</h2>
+  <p><strong>Method.</strong> Interrupted time series. A linear trend plus yearly seasonality is fitted by least squares to the months before the change, then projected forward with 95% prediction intervals. The effect is the difference between observed and projected values.</p>
+  <p><strong>Data.</strong> Every number on this page is currently simulated. The final version will use Public Health Scotland's Prescriptions in the Community open data.</p>
+  <p><strong>Author.</strong> Juliet Asantewaa Sarpong, PhD student in statistics (causal inference), University of Edinburgh.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

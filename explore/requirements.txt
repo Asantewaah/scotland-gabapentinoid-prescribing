@@ -1,0 +1,8 @@
+pandas
+polars
+requests
+matplotlib
+seaborn
+plotly
+altair
+jupyterlab
